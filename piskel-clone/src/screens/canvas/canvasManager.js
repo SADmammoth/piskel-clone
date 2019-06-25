@@ -10,6 +10,8 @@ export default class canvasManager {
         this.unit_size = window.devicePixelRatio;
         this.width = this.unit_width * this.unit_size;
         this.height = this.unit_height * this.unit_size;
+        this.canvas.style.setProperty('--i', this.unit_width);
+        this.canvas.style.setProperty('--w', parseInt(getComputedStyle(this.canvas).width) - parseInt(getComputedStyle(this.canvas).borderLeftWidth) - parseInt(getComputedStyle(this.canvas).borderRightWidth) + 'px');
     }
 
     getCanvasPoint(pageX, pageY) {

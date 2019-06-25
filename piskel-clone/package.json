@@ -34,7 +34,7 @@
     "dev": "webpack-dev-server --mode development --watch --no-inline",
     "build": "webpack --mode production",
     "lint": "eslint src/",
-    "scss": "node-sass --watch",
+    "scss": "node-sass --watch ./src/screens/canvas/scss/index.scss ./src/screens/canvas/css/index.css",
     "start": "node src/app.js",
     "heroku-postbuild": "webpack --mode production"
   },

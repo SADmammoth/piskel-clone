@@ -1,0 +1,11 @@
+canvas {
+  --w: 500px;
+  --i: 4;
+  background-image:
+    linear-gradient(45deg, #ccc 25%, transparent 25%), 
+    linear-gradient(135deg, #ccc 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #ccc 75%),
+    linear-gradient(135deg, transparent 75%, #ccc 75%);
+  background-size: calc(var(--w)/var(--i)*2) calc(var(--w)/var(--i)*2); /* Must be a square */
+  background-position:0 0, calc(var(--w)/var(--i)) 0, calc(var(--w)/var(--i)) calc(var(--w)/var(--i)*-1), 0px calc(var(--w)/var(--i)); /* Must be half of one side of the square */
+}

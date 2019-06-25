@@ -61,7 +61,7 @@ import locator from "./locator.js";
 //   context['msImageSmoothingEnabled'] = false;     /* IE */
 // }
 
-let manager = new canvasManager(2, 2, $('canvas')[0]);
+let manager = new canvasManager(32, 32, $('canvas')[0]);
 let loc = new locator(manager);
 
 $(function () { $('canvas').on('mousemove', function (event) { loc.drawLocation(event); }); });
