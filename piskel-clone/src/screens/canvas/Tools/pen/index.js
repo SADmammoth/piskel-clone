@@ -40,9 +40,11 @@ export default class Pen extends Tool {
     }
 
     stopAction(event) {
+
         let paintPoint = this.paintPoint(event);
         paintPoint.paint(this.currentPath);
         this.prevX = null; this.prevY = null;
+        this.currentPath.closePath();
         console.log('Pen tool suspended succesfully...');
     }
 

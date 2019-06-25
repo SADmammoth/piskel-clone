@@ -8,7 +8,6 @@ export default class canvasManager {
 
     constructCanvas() {
         this.unit_size = this.canvas.width / this.unit_width;
-        alert(this.unit_size);
         this.canvas.style.setProperty('--i', this.unit_width);
         this.canvas.style.setProperty('--w', parseInt(getComputedStyle(this.canvas).width) - parseInt(getComputedStyle(this.canvas).borderLeftWidth) - parseInt(getComputedStyle(this.canvas).borderRightWidth) + 'px');
     }

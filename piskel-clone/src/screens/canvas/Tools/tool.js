@@ -22,7 +22,7 @@ export default class Tool {
         }
     }
     suspendTool(event, stopAction) {
-        stopAction(event);
         this.is_Acting = false;
+        stopAction(event);
     }
 };
