@@ -7,9 +7,8 @@ export default class canvasManager {
     }
 
     constructCanvas() {
-        this.unit_size = window.devicePixelRatio;
-        this.width = this.unit_width * this.unit_size;
-        this.height = this.unit_height * this.unit_size;
+        this.unit_size = this.canvas.width / this.unit_width;
+        alert(this.unit_size);
         this.canvas.style.setProperty('--i', this.unit_width);
         this.canvas.style.setProperty('--w', parseInt(getComputedStyle(this.canvas).width) - parseInt(getComputedStyle(this.canvas).borderLeftWidth) - parseInt(getComputedStyle(this.canvas).borderRightWidth) + 'px');
     }
@@ -40,7 +39,6 @@ export default class canvasManager {
         let unitX;
         let unitY;
         unitX = Math.floor(canvasX / rect.width * this.unit_width);
-
         unitY = Math.floor(canvasY / rect.height * this.unit_height);
         return { unitX: unitX, unitY: unitY };
     }
@@ -53,13 +51,33 @@ export default class canvasManager {
     getUnit(unitX, unitY) {
         return new canvasUnit(this, unitX, unitY);
     }
+
+    getPointedUnit(pageX, pageY) {
+        let XY = this.getCanvasPoint(pageX, pageY);
+        XY = this.findUnit(XY.canvasX, XY.canvasY);
+        console.log(this.getUnit(XY.unitX, XY.unitY).center_pixel);
+        return this.getUnit(XY.unitX, XY.unitY);
+    }
+
+    locateUnit(unitX, unitY) {
+        let rect = this.canvas.getBoundingClientRect();
+        console.log(unitX / this.unit_width * rect.width);
+        return { canvasX: unitX / this.unit_width * rect.width, canvasY: unitY / this.unit_height * rect.height };
+    }
+
+    locateThatUnit(canvasUnit) {
+        return this.locateUnit(canvasUnit.d_x, canvasUnit.d_y);
+    }
 }
 
 export class canvasUnit {
-    construct(canvasManager, unitX, unitY) {
+    constructor(canvasManager, unitX, unitY) {
         this.d_x = unitX;
         this.d_y = unitY;
         this.manager = canvasManager;
+        let XY = this.manager.locateUnit(this.d_x, this.d_y);
+        this.center_pixel = { d_x: XY.canvasX + (this.manager.unit_size / 2), d_y: XY.canvasY + (this.manager.unit_size / 2) };
+        console.log(this.center_pixel);
         Object.defineProperty(this, "unitX", { set: function (x) { reconfigurePixels(); this.unitX = x; } });
         Object.defineProperty(this, "unitY", { set: function (y) { reconfigurePixels(); this.unitY = y; } });
         this.reconfigurePixels();
@@ -106,10 +124,15 @@ export class canvasUnit {
     }
 
     reconfigurePixels() {
-        this.pixels = canvasManager.canvas.getContext('2d').getImageData(unitX * canvasManager.unit_size, unitY * canvasManager.unit_size, canvasManager.unit_size, canvasManager.unit_size);
+        this.pixels = this.manager.canvas.getContext('2d').getImageData(this.unitX + this.manager.unit_size, this.unitY + this.manager.unit_size, this.manager.unit_size, this.manager.unit_size);
     }
 
     getPixels() {
         return this.pixels;
+    }
+
+    paint(path) {
+        let XY = this.manager.locateUnit(this.d_x, this.d_y);
+        path.rect(XY.canvasX, XY.canvasY, this.manager.unit_size, this.manager.unit_size);
     }
 }
