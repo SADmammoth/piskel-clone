@@ -1,19 +1,24 @@
-let currentTool;
-
 export default class Tool {
     constructor(name, canvasManager) {
         this.name = name;
         this.is_Acting = false;
         this.manager = canvasManager;
+        globalState.currentTool = {};
     }
 
-    invokeTool(event, startAction) {
-        if (currentTool) {
-            currentTool.suspendTool(event);
-        }
-        currentTool = this;
+    activateTool(event, startAction) {
         startAction(event);
         this.is_Acting = true;
+    }
+
+    invokeTool(event, invoke) {
+        if (globalState.currentTool) {
+            globalState.currentTool.suspendTool(event);
+        }
+        globalState.currentTool = this;
+        if (invoke) {
+            invoke(event);
+        }
     }
 
     toolAction(event, intimeActions) {
@@ -21,7 +26,15 @@ export default class Tool {
             intimeActions(event);
         }
     }
-    suspendTool(event, stopAction) {
+
+    suspendTool(event, suspend) {
+        globalState.currentTool = null;
+        if (suspend) {
+            suspend(event);
+        }
+    }
+
+    deactivateTool(event, stopAction) {
         this.is_Acting = false;
         stopAction(event);
     }

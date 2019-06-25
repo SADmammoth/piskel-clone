@@ -37,6 +37,8 @@ export default class Pen extends Tool {
         this.prevX = paintPoint.d_x;
         this.prevY = paintPoint.d_y;
         context.fill(this.currentPath);
+
+
     }
 
     stopAction(event) {
@@ -88,15 +90,15 @@ export default class Pen extends Tool {
     //     console.log('Pen tool suspended succesfully...');
     // }
 
-    invokeTool(event) {
-        return super.invokeTool(event, this.startAction);
+    activateTool(event) {
+        return super.activateTool(event, this.startAction);
     }
 
     toolAction(event) {
         super.toolAction(event, this.intimeActions);
     }
-    suspendTool(event) {
-        super.suspendTool(event, this.stopAction);
+    deactivateTool(event) {
+        super.deactivateTool(event, this.stopAction);
     }
 };
 // function setpixelated(context) {
