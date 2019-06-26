@@ -8,7 +8,7 @@ export default class Pen extends Tool {
     clickAction(event) {
         let context = this.manager.canvas.getContext('2d');
         this.currentPath = new Path2D();
-        this.widthMod = 1;
+        this.widthMod = window.globalState.brushWidth;
         this.paintColor = window.globalState.primaryColor;
         context.fillStyle = this.paintColor;
         context.beginPath();
@@ -18,7 +18,7 @@ export default class Pen extends Tool {
     startAction(event) {
         let context = this.manager.canvas.getContext('2d');
         this.currentPath = new Path2D();
-        this.widthMod = 1;
+        this.widthMod = this.widthMod = window.globalState.brushWidth;
         this.paintColor = window.globalState.primaryColor;
         context.fillStyle = this.paintColor;
         context.beginPath();

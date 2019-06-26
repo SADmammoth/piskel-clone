@@ -6,6 +6,7 @@ import Pen from "./Tools/pen/index.js";
 import Eraser from "./Tools/eraser/index.js";
 import toolbarManager from "./toolbarManager.js";
 import colorManager from "./colorManager.js";
+import brushbarManager from "./Tools/brushbarManager.js";
 
 let manager = new canvasManager(32, 32, $('canvas')[0]);
 
@@ -21,3 +22,6 @@ toolbar.start();
 
 let colorbar = new colorManager('#000000', '#ffffff');
 colorbar.start();
+
+let brushbar = new brushbarManager(1);
+brushbar.start();
