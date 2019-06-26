@@ -25,12 +25,17 @@
       </li>
     </div>
   </nav>
-  <nav class="toolbar btn-toolbar-vertical float-left " style='margin: 20px'>
-        <button tool='pen' class="btn btn-primary" style='width: 100%'>Pen tool</button>
-      <hr/>
+  <nav class="btn-toolbar-vertical float-left" style='margin: 20px'>
+    <div class='toolbar btn-group-vertical'>
+        <button tool='pen'    class="btn btn-primary" style='width: 100%'>Pen tool</button>
         <button tool='eraser' class="btn btn-primary" style='width: 100%'>Eraser tool</button>
-      <hr/>
-        <button class="btn btn-primary" style='width: 100%'>Bucket tool</button>
+        <button tool='bucket' class="btn btn-primary" style='width: 100%'>Bucket tool</button>
+    </div>
+    <div class='colorbar btn-group-vertical'>
+      <input tool='primaryColor' type='color' value='window.globalState.primaryColor'>
+      <input tool='secondaryColor' type='color' value='window.globalState.secondaryColor'>
+      <button tool='swap_colors' class='btn btn-secondary'>Swap</button>
+    </div>
   </nav>
   <canvas width= 500 height = 500 style="width: 500px; height: 500px;border:1px solid #000000;">
    

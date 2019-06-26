@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+var nodeExternals = require('webpack-node-externals');
 
 module.exports = {
     entry: './app.js',
@@ -41,7 +42,6 @@ module.exports = {
         ],
     },
     plugins: [new HtmlWebpackPlugin({ hash: true, template: './src/screens/canvas/index.html' })],
-    node: {
-        fs: 'empty'
-    },
+    target: 'node-webkit',
+    externals: [nodeExternals()],
 };

@@ -3,7 +3,7 @@ export default class Tool {
         this.name = name;
         this.is_Acting = false;
         this.manager = canvasManager;
-        globalState.currentTool = {};
+        window.globalState.currentTool = {};
     }
 
     activateTool(event, startAction) {
@@ -12,10 +12,10 @@ export default class Tool {
     }
 
     invokeTool(event, invoke) {
-        if (globalState.currentTool) {
-            globalState.currentTool.suspendTool(event);
+        if (window.globalState.currentTool) {
+            window.globalState.currentTool.suspendTool(event);
         }
-        globalState.currentTool = this;
+        window.globalState.currentTool = this;
         if (invoke) {
             invoke(event);
         }
@@ -28,7 +28,7 @@ export default class Tool {
     }
 
     suspendTool(event, suspend) {
-        globalState.currentTool = null;
+        window.globalState.currentTool = null;
         if (suspend) {
             suspend(event);
         }
@@ -38,4 +38,4 @@ export default class Tool {
         this.is_Acting = false;
         stopAction(event);
     }
-};
+}

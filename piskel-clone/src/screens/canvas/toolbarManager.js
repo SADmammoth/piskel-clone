@@ -3,28 +3,37 @@
 export default class toolbarManager {
     constructor(toolsObject) {
         this.toolsObject = toolsObject;
-        globalState.currentTool = null;
+        window.globalState.currentTool = null;
     }
 
     start() {
+        $('.btn').mouseup(function () { this.blur() });
+
         $('.toolbar').on('click', this.delegate.bind(this));
     }
 
     delegate(event) {
 
-        if (globalState.currentTool && event.target.getAttribute('tool') === globalState.currentTool.name) {
-            console.log(globalState.currentTool, event.target.getAttribute('tool'));
-            globalState.currentTool.suspendTool(event);
+        if (window.globalState.currentTool) {
+            $('canvas').off('click');
             $('canvas').off('mousedown');
             $('canvas').off('mousemove');
             $('canvas').off('mouseup');
             $('canvas').off('mouseout');
-            return true;
+            $('.toolbar .active').removeClass('active');
+            if (event.target.getAttribute('tool') === window.globalState.currentTool.name) {
+                window.globalState.currentTool.suspendTool(event);
+                return true;
+            }
+            window.globalState.currentTool.suspendTool(event);
         }
+
+        event.target.classList.add('active');
         this.toolsObject[event.target.getAttribute('tool')].invokeTool(event);
-        $('canvas').on('mousedown', (e) => globalState.currentTool.activateTool(e));
-        $('canvas').on('mousemove', (e) => globalState.currentTool.toolAction(e));
-        $('canvas').on('mouseup', (e) => globalState.currentTool.deactivateTool(e));
-        $('canvas').on('mouseout', (e) => globalState.currentTool.deactivateTool(e));
+        $('canvas').on('click', (e => { e.stopImmediatePropagation(); window.globalState.currentTool.clickAction(e); }));
+        $('canvas').on('mousedown', (e) => window.globalState.currentTool.activateTool(e));
+        $('canvas').on('mousemove', (e) => window.globalState.currentTool.toolAction(e));
+        $('canvas').on('mouseup', (e) => window.globalState.currentTool.deactivateTool(e));
+        $('canvas').on('mouseout', (e) => window.globalState.currentTool.deactivateTool(e));
     }
 }

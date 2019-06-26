@@ -7,8 +7,8 @@ export default class Eraser extends Pen {
     }
 
     startAction(event) {
-        super.startAction(event);
         this.manager.canvas.getContext('2d').globalCompositeOperation = 'destination-out';
+        super.startAction(event);
     }
 
     stopAction(event) {
