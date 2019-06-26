@@ -1,8 +1,8 @@
 import Pen from "../pen/index.js";
 
 export default class Eraser extends Pen {
-    constructor(canvasManager) {
-        super(canvasManager, null);
+    constructor() {
+        super();
         this.name = 'eraser';
     }
 

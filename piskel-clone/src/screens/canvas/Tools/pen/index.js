@@ -1,8 +1,8 @@
 import Tool from '../tool.js';
 
 export default class Pen extends Tool {
-    constructor(canvasManager, colorManager) {
-        super('pen', canvasManager, colorManager);
+    constructor() {
+        super('pen');
     }
 
     clickAction(event) {

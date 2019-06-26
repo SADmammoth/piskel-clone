@@ -5,4 +5,7 @@ canvas {
   background-size: calc(var(--w)/var(--i)*2) calc(var(--w)/var(--i)*2);
   /* Must be a square */
   background-position: 0 0, calc(var(--w)/var(--i)) 0, calc(var(--w)/var(--i)) calc(var(--w)/var(--i)*-1), 0px calc(var(--w)/var(--i));
-  /* Must be half of one side of the square */ }
+  /* Must be half of one side of the square */
+  position: absolute;
+  left: 800px;
+  top: 80px; }
