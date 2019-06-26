@@ -7,12 +7,21 @@ export default class colorManager {
     }
 
     start() {
-        $(".colorbar [tool='primaryColor']")[0].value = this.default_primary;
-        $(".colorbar [tool='secondaryColor']")[0].value = this.default_secondary;
+        $(".colorbar [tool='primaryColor']")[0].value = window.globalState.primaryColor;
+        $(".colorbar [tool='secondaryColor']")[0].value = window.globalState.secondaryColor;
         $('.colorbar').on('input', this.delegate.bind(this));
+        $('.colorbar').on('click', this.delegate.bind(this));
     }
 
     delegate(event) {
+        if (event.target.getAttribute('tool') === 'swap_colors') {
+            let buf = window.globalState.secondaryColor;
+            window.globalState.secondaryColor = window.globalState.primaryColor;
+            window.globalState.primaryColor = buf;
+            $(".colorbar [tool='primaryColor']")[0].value = window.globalState.primaryColor;
+            $(".colorbar [tool='secondaryColor']")[0].value = window.globalState.secondaryColor;
+            return true;
+        }
         window.globalState[event.target.getAttribute('tool')] = event.target.value;
         console.log(window.globalState.primaryColor, window.globalState.secondaryColor)
     }
