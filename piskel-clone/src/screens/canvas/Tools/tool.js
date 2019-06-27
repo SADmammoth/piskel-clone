@@ -15,7 +15,6 @@ export default class Tool {
             window.globalState.currentTool.suspendTool(event);
         }
         window.globalState.currentTool = this;
-        console.log(window.globalState.currentLayer);
         this.manager = window.globalState.currentLayer.manager;
         if (invoke) {
             invoke(event);

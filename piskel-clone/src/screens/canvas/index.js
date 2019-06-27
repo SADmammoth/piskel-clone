@@ -14,9 +14,9 @@ import colorManager from "./Tools/colorManager.js";
 import brushbarManager from "./Tools/brushbarManager.js";
 import layersList from "../../components/layers-list/index.js";
 import Layer from "../../components/layers-list/layer.js";
+import Bucket from "./Tools/bucket/bucket.js";
 
 let manager = new canvasManager(window.globalState.unit_width, window.globalState.unit_height, $('canvas')[0]);
-
 
 let layerslist = new layersList(new Layer('Layer 1', manager, 0));
 
@@ -28,13 +28,14 @@ $('canvas').on('mousemove', function (event) { loc.drawLocation(event); });
 let toolsObject = {};
 toolsObject['pen'] = Pen;
 toolsObject['eraser'] = Eraser;
+toolsObject['bucket'] = Bucket;
 
 let toolbar = new toolbarManager(toolsObject);
 toolbar.start();
 
 layerslist.linkSignal(toolbar.signal);
 
-let colorbar = new colorManager('#000000', '#ffffff');
+let colorbar = new colorManager('#000000', '#ff0000');
 colorbar.start();
 
 let brushbar = new brushbarManager(1);

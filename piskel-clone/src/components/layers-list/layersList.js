@@ -46,7 +46,6 @@ export default class layersList {
         if (window.globalState.currentTool) {
             this.updateView();
         }
-        this.embed();
     }
 
     linkSignal(signal) {
@@ -54,6 +53,6 @@ export default class layersList {
     }
 
     layers() {
-        return Object.keys(this.listObject).reduce((acc, x) => { acc.push(this.listObject[x]); return acc; }, []);
+        return Object.keys(this.listObject).reduce((acc, x) => { acc.push(this.listObject[x]); return acc; }, []).reverse();
     }
 }

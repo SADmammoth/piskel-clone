@@ -14,7 +14,6 @@ export default class toolbarManager {
     signal() {
         this.tool = window.globalState.currentTool;
         this.tool.invokeTool();
-        console.log(this.tool.manager.canvas.style.zIndex);
         $(this.tool.manager.canvas).off('click');
         $(this.tool.manager.canvas).off('mousedown');
         $(this.tool.manager.canvas).off('mousemove');
@@ -29,10 +28,8 @@ export default class toolbarManager {
 
     delegate(event) {
         this.event = event;
-        console.log(window.globalState.currentTool);
         this.tool = new this.toolsObject[event.target.getAttribute('tool')].prototype.constructor();
 
-        console.log(this.tool.manager.canvas.style.zIndex);
         if (window.globalState.currentTool) {
             $(this.tool.manager.canvas).off('click');
             $(this.tool.manager.canvas).off('mousedown');

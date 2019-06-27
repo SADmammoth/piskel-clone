@@ -21,7 +21,17 @@ export default class layersManager {
     }
 
     bind() {
-        $('.layers-list').on('click', (e) => { this.layersList.editLayer($(e.target).text()) });
+        $('.layers-list').on('click', this.chooseLayer.bind(this));
         $('.layersbar').on('click', (e) => { if (e.target.getAttribute('tool') === 'newlayer') this.layersList.createLayer(); });
+    }
+
+    chooseLayer(e) {
+        if ($(e.target).text() === window.globalState.currentLayer.name) {
+            return true;
+        }
+        $('.layers-list .active').removeClass('active');
+
+        e.target.classList.add('active');
+        this.layersList.editLayer($(e.target).text());
     }
 }

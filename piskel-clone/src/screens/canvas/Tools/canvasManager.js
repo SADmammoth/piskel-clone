@@ -8,7 +8,10 @@ export default class canvasManager {
     }
 
     constructCanvas() {
+        this.canvas.getContext('2d').fillStyle = '#ffffff00';
+        this.canvas.getContext('2d').fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.unit_size = this.canvas.width / this.unit_width;
+        window.globalState.unit_size = this.unit_size;
         this.canvas.style.setProperty('--i', this.unit_width);
         this.canvas.style.setProperty('--w', parseInt(getComputedStyle(this.canvas).width) - parseInt(getComputedStyle(this.canvas).borderLeftWidth) - parseInt(getComputedStyle(this.canvas).borderRightWidth) + 'px');
     }
@@ -35,11 +38,10 @@ export default class canvasManager {
     }
 
     findUnit(canvasX, canvasY) {
-        let rect = this.canvas.getBoundingClientRect();
         let unitX;
         let unitY;
-        unitX = Math.floor(canvasX / rect.width * this.unit_width);
-        unitY = Math.floor(canvasY / rect.height * this.unit_height);
+        unitX = Math.floor(canvasX / this.unit_size);
+        unitY = Math.floor(canvasY / this.unit_size);
         return { unitX: unitX, unitY: unitY };
     }
 
@@ -59,8 +61,7 @@ export default class canvasManager {
     }
 
     locateUnit(unitX, unitY) {
-        let rect = this.canvas.getBoundingClientRect();
-        return { canvasX: unitX / this.unit_width * rect.width, canvasY: unitY / this.unit_height * rect.height };
+        return { canvasX: unitX * this.unit_size, canvasY: unitY * this.unit_size };
     }
 
     locateThatUnit(canvasUnit) {
@@ -69,7 +70,7 @@ export default class canvasManager {
 }
 
 export class canvasUnit {
-    constructor(canvasManager, unitX, unitY) {
+    constructor(canvasManager, unitX, unitY, dir) {
         this.d_x = unitX;
         this.d_y = unitY;
         this.manager = canvasManager;
@@ -78,51 +79,95 @@ export class canvasUnit {
         Object.defineProperty(this, "unitX", { set: function (x) { this.reconfigurePixels(); this.unitX = x; } });
         Object.defineProperty(this, "unitY", { set: function (y) { this.reconfigurePixels(); this.unitY = y; } });
         this.reconfigurePixels();
-        this.color = null;
+        this.dir = dir;
+        this['south'] = this.south.bind(this);
+        this['north'] = this.north.bind(this);
+        this['east'] = this.east.bind(this);
+        this['west'] = this.west.bind(this);
+        this['south_west'] = this.south_west.bind(this);
+        this['south_east'] = this.south_east.bind(this);
+        this['north_west'] = this.south_west.bind(this);
+        this['north_east'] = this.south_east.bind(this);
+
     }
 
-    get
-        south() {
-        return new canvasUnit(this.manager, this.d_x, this.d_y - this.manager.unit_size);
+    south(i) {
+        if (this.d_y - i < 0) {
+            return null;
+        }
+        return new canvasUnit(this.manager, this.d_x, this.d_y - i, 'south');
     }
 
-    north() {
-        return new canvasUnit(this.manager, this.d_x, this.d_y + this.manager.unit_size);
+    north(i) {
+        if (this.d_y + i > this.manager.unit_height - 1) {
+            return null;
+        }
+        return new canvasUnit(this.manager, this.d_x, this.d_y + i, 'north');
     }
 
-    west() {
-        return new canvasUnit(this.manager, this.d_x - this.manager.unit_size, this.d_y);
+    west(i) {
+        if (this.d_x - i < 0) {
+            return null;
+        }
+        return new canvasUnit(this.manager, this.d_x - i, this.d_y, 'west');
     }
 
-    east() {
-        return new canvasUnit(this.manager, this.d_x + this.manager.unit_size, this.d_y);
+    east(i) {
+        if (this.d_x + i > this.manager.unit_width - 1) {
+            return null;
+        }
+        return new canvasUnit(this.manager, this.d_x + i, this.d_y, 'east');
     }
 
-    south_west() {
-        return new canvasUnit(this.manager, this.d_x - this.manager.unit_size, this.d_y - this.manager.unit_size);
+    south_west(i) {
+        if (this.d_x - i < 0 || this.d_y - i < 0) {
+            return null;
+        }
+        return new canvasUnit(this.manager, this.d_x - i, this.d_y - i, 'south_west');
     }
 
-    south_east() {
-        return new canvasUnit(this.manager, this.d_x + this.manager.unit_size, this.d_y - this.manager.unit_size);
+    south_east(i) {
+        if (this.d_x + i > this.manager.unit_width - 1 || this.d_y - i < 0) {
+            return null;
+        }
+        return new canvasUnit(this.manager, this.d_x + i, this.d_y - i, 'south_east');
     }
 
-    north_west() {
-        return new canvasUnit(this.manager, this.d_x - this.manager.unit_size, this.d_y + this.manager.unit_size);
+    'north_west'(i) {
+        if (this.d_x - i < 0 || this.d_y + i > this.manager.unit_height - 1) {
+            return null;
+        }
+        return new canvasUnit(this.manager, this.d_x - i, this.d_y + i, 'north_west');
     }
 
-    north_east() {
-        return new canvasUnit(this.manager, this.d_x + this.manager.unit_size, this.d_y + this.manager.unit_size);
+    north_east(i) {
+        if (this.d_x + i > this.manager.unit_width - 1 || this.d_y + i > this.manager.unit_height - 1) {
+            return null;
+        }
+        return new canvasUnit(this.manager, this.d_x + i, this.d_y + i, 'north_east');
     }
 
-    get_neighbors() {
+    get_neighbors(i) {
         let neighbors = [];
-        neighbors.push(this.west(), this.north_west(), this.north(), this.north_east());
-        neighbors.push(this.east(), this.south_east(), this.south(), this.south_west());
+        neighbors.push(this.west(i), this.north_west(i), this.north(i), this.north_east(i));
+        neighbors.push(this.east(i), this.south_east(i), this.south(i), this.south_west(i));
         return neighbors;
     }
 
     reconfigurePixels() {
-        this.pixels = this.manager.canvas.getContext('2d').getImageData(this.unitX + this.manager.unit_size, this.unitY + this.manager.unit_size, this.manager.unit_size, this.manager.unit_size);
+        let XY = this.manager.locateUnit(this.d_x, this.d_y);
+        this.pixels = this.manager.canvas.getContext('2d').getImageData(XY.canvasX, XY.canvasY, this.manager.unit_size, this.manager.unit_size);
+    }
+
+    getColor() {
+        let XY = this.manager.locateUnit(this.d_x, this.d_y);
+        this.pixels = this.manager.canvas.getContext('2d').getImageData(XY.canvasX, XY.canvasY, this.manager.unit_size, this.manager.unit_size);
+        let data = this.pixels.data;
+        if (data[3] < 255) {
+
+            return null;
+        }
+        return `${data[0]}${data[1]}${data[2]}`;
     }
 
     getPixels() {
@@ -131,7 +176,14 @@ export class canvasUnit {
 
     paint(path, width, color) {
         let XY = this.manager.locateUnit(this.d_x, this.d_y);
-        path.rect(XY.canvasX, XY.canvasY, width, width);
-        this.color = color;
+        if (path === null) {
+            this.manager.canvas.getContext('2d').fillStyle = color;
+            this.manager.canvas.getContext('2d').rect(XY.canvasX, XY.canvasY, width, width);
+            this.manager.canvas.getContext('2d').fill();
+        } else {
+            path.rect(XY.canvasX, XY.canvasY, width, width);
+            this.manager.canvas.getContext('2d').fill(path);
+        }
+        this.painted = true;
     }
 }

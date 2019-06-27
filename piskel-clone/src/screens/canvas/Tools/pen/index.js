@@ -5,14 +5,8 @@ export default class Pen extends Tool {
         super('pen');
     }
 
-    clickAction(event) {
-        let context = this.manager.canvas.getContext('2d');
-        this.currentPath = new Path2D();
-        this.widthMod = window.globalState.brushWidth;
-        this.paintColor = window.globalState.primaryColor;
-        context.fillStyle = this.paintColor;
-        context.beginPath();
-        this.stopAction(event);
+    clickAction() {
+        return true;
     }
 
     startAction(event) {
@@ -27,7 +21,6 @@ export default class Pen extends Tool {
         this.prevX = paintPoint.center_pixel.d_x;
         this.prevY = paintPoint.center_pixel.d_y;
         context.fill(this.currentPath);
-        console.log('Pen tool invoked succesfully...');
     }
 
     paintPoint(event) {
@@ -35,19 +28,16 @@ export default class Pen extends Tool {
     }
 
     intimeActions(event) {
-        let context = this.manager.canvas.getContext('2d');
         let paintPoint = this.paintPoint(event);
         paintPoint.paint(this.currentPath, this.widthMod * this.manager.unit_size, this.paintColor);
         this.prevX = paintPoint.d_x;
         this.prevY = paintPoint.d_y;
-        context.fill(this.currentPath);
     }
 
     stopAction() {
         let context = this.manager.canvas.getContext('2d');
         this.prevX = null; this.prevY = null;
         context.closePath();
-        console.log('Pen tool suspended succesfully...');
     }
 
     activateTool(event) {

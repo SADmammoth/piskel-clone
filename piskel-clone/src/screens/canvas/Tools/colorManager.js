@@ -23,6 +23,5 @@ export default class colorManager {
             return true;
         }
         window.globalState[event.target.getAttribute('tool')] = event.target.value;
-        console.log(window.globalState.primaryColor, window.globalState.secondaryColor)
     }
 }
