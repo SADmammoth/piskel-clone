@@ -12,8 +12,6 @@ export default class canvasManager {
         this.canvas.getContext('2d').fillRect(0, 0, this.canvas.width, this.canvas.height);
         this.unit_size = this.canvas.width / this.unit_width;
         window.globalState.unit_size = this.unit_size;
-        this.canvas.style.setProperty('--i', this.unit_width);
-        this.canvas.style.setProperty('--w', parseInt(getComputedStyle(this.canvas).width) - parseInt(getComputedStyle(this.canvas).borderLeftWidth) - parseInt(getComputedStyle(this.canvas).borderRightWidth) + 'px');
     }
 
     getCanvasPoint(pageX, pageY) {

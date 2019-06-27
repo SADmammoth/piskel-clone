@@ -4,11 +4,21 @@ import Layer from './Layer.js';
 
 export default class layersList {
     constructor(base_layer) {
-        this.base_layer = base_layer;
-        this.layersManager = new layersManager(this);
-        this.listObject = { 'Layer 1': base_layer };
-        this.layersCount = 1;
-        window.globalState.currentLayer = base_layer;
+        if (base_layer) {
+            this.base_layer = base_layer;
+            this.layersManager = new layersManager(this);
+            this.listObject = { 'Layer 1': base_layer };
+            this.layersCount = 1;
+            window.globalState.currentLayer = base_layer;
+        }
+        else {
+            this.layersCount = 0;
+            this.layersManager = new layersManager(this);
+            this.listObject = {};
+            $('.workflow').empty();
+            this.createLayer('Layer 1');
+
+        }
     }
 
     embed() {
@@ -26,7 +36,9 @@ export default class layersList {
         let canvas = $(window.globalState.canvasTemplate);
         canvas.css('zIndex', this.layersCount);
         $('.workflow').append(canvas);
+
         let manager = new canvasManager(window.globalState.unit_width, window.globalState.unit_height, canvas[0]);
+
         if (!name) {
             name = `Layer ${this.layersCount}`;
         }
@@ -54,5 +66,12 @@ export default class layersList {
 
     layers() {
         return Object.keys(this.listObject).reduce((acc, x) => { acc.push(this.listObject[x]); return acc; }, []).reverse();
+    }
+
+    showCanvas() {
+        $('.workflow').empty();
+        Object.keys(this.listObject).forEach((x) => $('.workflow').append(this.listObject[x].canvas));
+
+        this.embed();
     }
 }
