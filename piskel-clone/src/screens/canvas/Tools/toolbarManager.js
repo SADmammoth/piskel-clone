@@ -4,12 +4,13 @@ export default class toolbarManager {
         window.globalState.currentTool = null;
     }
 
-    start(updateView) {
+    start(updateView, updatePreview) {
         $('.btn').mouseup(function () { this.blur() });
 
         $('.toolbar').on('click', this.delegate.bind(this));
         this.signal = this.signal.bind(this);
         this.update = updateView;
+        this.reload = updatePreview;
     }
 
     signal() {
@@ -23,8 +24,8 @@ export default class toolbarManager {
         $(this.tool.manager.canvas).on('click', (e => { e.stopImmediatePropagation(); window.globalState.currentTool.clickAction(e); }));
         $(this.tool.manager.canvas).on('mousedown', (e) => window.globalState.currentTool.activateTool(e));
         $(this.tool.manager.canvas).on('mousemove', (e) => window.globalState.currentTool.toolAction(e));
-        $(this.tool.manager.canvas).on('mouseup', (e) => { this.update(); window.globalState.currentTool.deactivateTool(e) });
-        $(this.tool.manager.canvas).on('mouseout', (e) => { this.update(); window.globalState.currentTool.deactivateTool(e) });
+        $(this.tool.manager.canvas).on('mouseup', (e) => { this.reload(); this.update(); window.globalState.currentTool.deactivateTool(e) });
+        $(this.tool.manager.canvas).on('mouseout', (e) => { this.reload(); this.update(); window.globalState.currentTool.deactivateTool(e) });
     }
 
     delegate(event) {
@@ -49,8 +50,8 @@ export default class toolbarManager {
         $(this.tool.manager.canvas).on('click', (e => { e.stopImmediatePropagation(); window.globalState.currentTool.clickAction(e); }));
         $(this.tool.manager.canvas).on('mousedown', (e) => window.globalState.currentTool.activateTool(e));
         $(this.tool.manager.canvas).on('mousemove', (e) => window.globalState.currentTool.toolAction(e));
-        $(this.tool.manager.canvas).on('mouseup', (e) => { this.update(); window.globalState.currentTool.deactivateTool(e) });
-        $(this.tool.manager.canvas).on('mouseout', (e) => { this.update(); window.globalState.currentTool.deactivateTool(e) });
+        $(this.tool.manager.canvas).on('mouseup', (e) => { this.reload(); this.update(); window.globalState.currentTool.deactivateTool(e) });
+        $(this.tool.manager.canvas).on('mouseout', (e) => { this.reload(); this.update(); window.globalState.currentTool.deactivateTool(e) });
         this.tool = null;
     }
 

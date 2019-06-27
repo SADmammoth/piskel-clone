@@ -9,4 +9,8 @@ export default class Frame {
         $('.frames').append(node);
         this.layerList.preview(node.find('.preview'));
     }
+
+    preview(canvas) {
+        return this.layerList.redraw(canvas);
+    }
 }

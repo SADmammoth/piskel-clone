@@ -16,11 +16,14 @@ import colorManager from "./Tools/colorManager.js";
 import brushbarManager from "./Tools/brushbarManager.js";
 import Bucket from "./Tools/bucket/bucket.js";
 import framesList from "../../components/frames-list/index.js";
+import videoPreviewer from "../preview/videoPreviewer.js";
 
-let framelist = new framesList();
+window.globalState.currentFramelist = new framesList();
 
 
 
+let previewer = new videoPreviewer();
+previewer.start();
 
 let toolsObject = {};
 toolsObject['pen'] = Pen;
@@ -28,8 +31,8 @@ toolsObject['eraser'] = Eraser;
 toolsObject['bucket'] = Bucket;
 
 let toolbar = new toolbarManager(toolsObject);
-toolbar.start(framelist.update);
-framelist.start(toolbar.signal);
+toolbar.start(window.globalState.currentFramelist.update, previewer.update);
+window.globalState.currentFramelist.start(toolbar.signal);
 
 let colorbar = new colorManager('#000000', '#ff0000');
 colorbar.start();
@@ -41,3 +44,4 @@ $(function () {
     $('.workflow').css('--i', window.globalState.unit_width);
     $('.workflow').css('--w', '500px');
 });
+
