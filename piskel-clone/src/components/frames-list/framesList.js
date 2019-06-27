@@ -11,25 +11,30 @@ export default class framesList {
             this.list = Array.of(this.basicFrame);
             this.framesCount = 1;
             window.globalState.currentFrame = basicFrame;
+        } else {
+            this.framesCount = 0;
+            this.framesManager = new framesManager(this);
+            this.list = [];
+            this.update = this.update.bind(this);
         }
     }
 
-    start() {
-        this.framesCount = 0;
-        this.framesManager = new framesManager(this);
-        this.list = [];
+    start(toolbarSignal) {
+        this.signal = toolbarSignal;
         this.createFrame();
+
     }
 
     embed() {
         this.framesManager.delete();
-        let html = this.framesManager.html();
-        $('body').append(html);
+        this.framesManager.html();
+
+
         this.framesManager.bind();
     }
 
     createFrame() {
-        let frame = new Frame(this.framesCount, new layersList());
+        let frame = new Frame(this.framesCount, new layersList(this.signal));
         this.list.push(frame);
         this.embed();
         window.globalState.currentFrame = frame;
@@ -40,22 +45,13 @@ export default class framesList {
         console.log(count);
         window.globalState.currentFrame = this.list[count];
         window.globalState.currentFrame.layerList.showCanvas();
+        window.globalState.currentLayer = window.globalState.currentFrame.layerList.lastLayer;
         this.embed();
     }
 
-    // editLayer(name) {
-    //     if (!name || this.listObject[name] === undefined) {
-    //         throw new Error('Cannot find layer with name specified');
-    //     }
-    //     window.globalState.currentLayer = this.listObject[name];
-    //     if (window.globalState.currentTool) {
-    //         this.updateView();
-    //     }
-    // }
-
-    // linkSignal(signal) {
-    //     this.updateView = signal;
-    // }
+    update() {
+        this.embed();
+    }
 
     frames() {
         return this.list;

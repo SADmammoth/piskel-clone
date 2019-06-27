@@ -5,6 +5,8 @@ export default class Frame {
     }
 
     html() {
-        return `<button class='frame btn btn-primary'><div><span>${this.count}</span></div></button>`;
+        let node = $(`<button class='frame btn btn-primary'><span>${this.count}</span>${window.globalState.previewTemplate}</button>`);
+        $('.frames').append(node);
+        this.layerList.preview(node.find('.preview'));
     }
 }

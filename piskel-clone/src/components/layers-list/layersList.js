@@ -3,7 +3,7 @@ import layersManager from './layersManager.js';
 import Layer from './Layer.js';
 
 export default class layersList {
-    constructor(base_layer) {
+    constructor(signal, base_layer) {
         if (base_layer) {
             this.base_layer = base_layer;
             this.layersManager = new layersManager(this);
@@ -17,8 +17,9 @@ export default class layersList {
             this.listObject = {};
             $('.workflow').empty();
             this.createLayer('Layer 1');
-
         }
+
+        this.updateView = signal;
     }
 
     embed() {
@@ -29,6 +30,7 @@ export default class layersList {
     }
 
     createLayer(name) {
+        console.log(this.updateView);
         if (this.listObject[name] !== undefined) {
             throw new Error('Cannot create layer with name specified');
         }
@@ -47,6 +49,7 @@ export default class layersList {
         if (window.globalState.currentTool) {
             this.updateView();
         }
+        this.lastLayer = this.listObject[name];
         this.embed();
     }
 
@@ -71,7 +74,11 @@ export default class layersList {
     showCanvas() {
         $('.workflow').empty();
         Object.keys(this.listObject).forEach((x) => $('.workflow').append(this.listObject[x].canvas));
-
         this.embed();
+    }
+
+    preview(canvas) {
+        Object.keys(this.listObject).reverse().forEach((x) => canvas[0].getContext('2d').drawImage(this.listObject[x].canvas, 0, 0));
+        return canvas.wrap('<p></p>').parent().html();
     }
 }

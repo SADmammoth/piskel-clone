@@ -4,14 +4,14 @@ export default class framesManager {
     }
 
     html() {
-        let str = this.framesList.frames().map((x) => x.html()).join('');
-        return `
+        let str = `
         <div class='frames'>
-            ${str}
             <ul class='framesbar btn-group-vertical'>
                 <button tool='newframe'>New frame</button>
             </ul>
-        </div>`
+        </div>`;
+        $('body').append(str);
+        this.framesList.frames().map((x) => x.html());
     }
 
     delete() {
@@ -19,6 +19,8 @@ export default class framesManager {
     }
 
     bind() {
+        $('.preview').css('--i', window.globalState.unit_width);
+        $('.preview').css('--w', '100px');
         $('.frame').on('click', this.chooseFrame.bind(this));
         $('.framesbar').on('click', (event) => {
             if ($(event.target).attr('tool') === 'newframe') {
@@ -28,13 +30,15 @@ export default class framesManager {
     }
 
     chooseFrame(e) {
-        let target = $(e.target).children().eq(0).children().eq(0);
-        if (target.text() === window.globalState.currentFrame.count) {
-            return true;
-        }
-        $('.frames-list .active').removeClass('active');
+        if (e.target.classList.contains('btn')) {
+            let target = $(e.target).find('span');
+            if (target.text() === window.globalState.currentFrame.count) {
+                return true;
+            }
+            $('.frames-list .active').removeClass('active');
 
-        e.target.classList.add('active');
-        this.framesList.editFrame(target.text());
+            e.target.classList.add('active');
+            this.framesList.editFrame(target.text());
+        }
     }
 }

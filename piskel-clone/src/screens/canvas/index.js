@@ -1,6 +1,7 @@
 window.globalState = {
     app_name: 'PiskelClone',
-    canvasTemplate: '<canvas width= 500 height = 500 style="width: 500px; height: 500px; background-image: none; border:1px solid #000000;"></canvas>',
+    canvasTemplate: '<canvas class="layer" width= 500 height = 500 style="width: 500px; height: 500px; background-image: none; border:1px solid #000000;"></canvas>',
+    previewTemplate: '<canvas class="preview" width= 500 height = 500 style="width: 100px; height: 100px; border:1px solid #000000;"></canvas>',
     unit_width: 32,
     unit_height: 32,
     fps: 24
@@ -18,7 +19,7 @@ import framesList from "../../components/frames-list/index.js";
 
 let framelist = new framesList();
 
-framelist.start();
+
 
 
 let toolsObject = {};
@@ -27,7 +28,8 @@ toolsObject['eraser'] = Eraser;
 toolsObject['bucket'] = Bucket;
 
 let toolbar = new toolbarManager(toolsObject);
-toolbar.start();
+toolbar.start(framelist.update);
+framelist.start(toolbar.signal);
 
 let colorbar = new colorManager('#000000', '#ff0000');
 colorbar.start();
