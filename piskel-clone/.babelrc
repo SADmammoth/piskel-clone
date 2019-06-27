@@ -1,13 +1,13 @@
-{
-  "presets": [
-    [
-      "@babel/preset-env",
-      {
-        "targets": {
-          "chrome": "73"
-        },
-      }
-    ]
-  ],
-  "plugins": []
-}
+    {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "targets": {
+              "chrome": "73"
+            },
+          }
+        ]
+      ],
+      "plugins": []
+    }
