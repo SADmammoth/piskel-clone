@@ -78,7 +78,9 @@ export default class layersList {
 
   preview(canvas) {
     Object.keys(this.listObject).reverse().forEach((x) => canvas[0].getContext('2d').drawImage(this.listObject[x].canvas, 0, 0));
-    return canvas.wrap('<p></p>').parent().html();
+    let html = canvas.wrap('<p></p>').parent().html();
+    canvas.unwrap();
+    return html;
   }
 
   redraw(canvas) {
@@ -86,6 +88,8 @@ export default class layersList {
       return canvas.getContext('2d').getImageData(0, 0, canvas.width, canvas.height);
     }
     Object.keys(this.listObject).reverse().forEach((x) => canvas[0].getContext('2d').putImageData(getImageData(this.listObject[x].canvas), 0, 0));
-    return canvas.wrap('<p></p>').parent().html();
+    let html = canvas.wrap('<p></p>').parent().html();
+    canvas.unwrap();
+    return html;
   }
 }
