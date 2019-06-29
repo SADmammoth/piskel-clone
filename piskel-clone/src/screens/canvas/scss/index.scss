@@ -4,44 +4,162 @@
 
 $theme-colors: (
   dark: #222222,
+  primary: #323232,
+  secondary: #454545,
 );
+
+$font-family-base: 'B612 Mono', monospace;
 
 @import "../../bootstrap/scss/bootstrap";
 
 :root{
   --i: 4;
+  font-size: 12.15px;
+  line-height: 1.5;
 }
 
 .workflow {
-  --w: 500px;
+  --w: 640px;
   --i: inherit;
-  background-image:
-    linear-gradient(45deg, #ccc 25%, transparent 25%),
-    linear-gradient(135deg, #ccc 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #ccc 75%),
-    linear-gradient(135deg, transparent 75%, #ccc 75%);
-  background-size: calc(var(--w)/var(--i)*2) calc(var(--w)/var(--i)*2); /* Must be a square */
-  background-position:0 0, calc(var(--w)/var(--i)) 0, calc(var(--w)/var(--i)) calc(var(--w)/var(--i)*-1), 0px calc(var(--w)/var(--i)); /* Must be half of one side of the square */
-  position: absolute;
-  left: 550px;
-  top: 80px;
-  width: 500px;
-  height: 500px;
+  position: relative;
+  margin: 40px 270px;
+  width: 640px;
+  height: 640px;
 }
+
+input[type="color"]::-webkit-color-swatch-wrapper {
+	padding: 0;
+}
+input[type="color"]::-webkit-color-swatch {
+	border: none;
+}
+input[type=range] {
+  -webkit-appearance: none; /* Hides the slider so that custom slider can be made */
+  width: 100%; /* Specific width is required for Firefox. */
+  background: transparent; /* Otherwise white in Chrome */
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none; /* Removes the blue border. You should probably do some kind of focus styling for accessibility reasons though. */
+}
+
+input[type=range]::-ms-track {
+  width: 100%;
+  cursor: pointer;
+
+  /* Hides the slider so custom styles can be added */
+  background: transparent;
+  border-color: transparent;
+  color: transparent;
+}
+
+input[type=range]:focus::-webkit-slider-thumb{
+  border: $secondary solid 2px;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  height: 16px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+  margin-top: -4px; /* You need to specify a margin in Chrome, but in Firefox and IE it is automatic */
+}
+
+/* All the same stuff for Firefox */
+input[type=range]::-moz-range-thumb {
+  box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
+  border: 1px solid #000000;
+  height: 36px;
+  width: 16px;
+  border-radius: 3px;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: $secondary;
+  border-radius: 1.3px;
+}
+
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #c4c4c4;
+}
+
+input[type=range]::-moz-range-track {
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+  background: $secondary;
+  border-radius: 1.3px;
+}
+
+div::-webkit-scrollbar-track
+{
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    border-radius: 10px;
+    background-color: transparent;
+}
+
+div::-webkit-scrollbar
+{
+    width: 5px;
+    background-color: transparent;
+}
+
+div::-webkit-scrollbar-thumb
+{
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: #555;
+}
+
 .preview{
   --w: 100px;
   --i: inherit;
   width: 100px;
   height: 100px;
-  background-color: #ffffff;
+}
+
+.framecount{
+  position: absolute;
+  left: 8px;
+  font-weight: bold;
+  -webkit-text-stroke-width: 1px;
+   -webkit-text-stroke-color: black;
+   font-family: 'Roboto', sans-serif;
+   font-size: 20px;
+}
+
+.checked{
+  background-color: $dark;
   background-image:
-    linear-gradient(45deg, #ccc 25%, transparent 25%),
-    linear-gradient(135deg, #ccc 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #ccc 75%),
-    linear-gradient(135deg, transparent 75%, #ccc 75%);
+    linear-gradient(45deg, $secondary 26%, transparent 26%),
+    linear-gradient(135deg, $secondary 26%, transparent 26%),
+    linear-gradient(45deg, transparent 76%, $secondary 76%),
+    linear-gradient(135deg, transparent 76%, $secondary 76%);
     background-size: calc(var(--w)/var(--i)*2) calc(var(--w)/var(--i)*2); /* Must be a square */
-    background-position:0 0, calc(var(--w)/var(--i)) 0, calc(var(--w)/var(--i)) calc(var(--w)/var(--i)*-1), 0px calc(var(--w)/var(--i)); /* Must be half of one side of the square */
-    border:1px solid #000000;
+    background-position:0 0, calc(var(--w)/var(--i)) 0, calc(var(--w)/var(--i)) calc(var(--w)/var(--i)*-1), 0px calc(var(--w)/var(--i));
+}
+
+#width-bar ~ output{
+  position: relative;
+  border-radius: 5px;
+  top: -18px;
+  padding-left: 4px;
+  font-size: 12px;
+  pointer-events: none;
+  text-align: center;
+  font-weight: bold;
+  color: $dark;
 }
 
 .big_preview .preview{
@@ -49,23 +167,15 @@ $theme-colors: (
   --i: inherit;
   width: 200px;
   height: 200px;
-  background-color: #ffffff;
-  background-image:
-    linear-gradient(45deg, #ccc 25%, transparent 25%),
-    linear-gradient(135deg, #ccc 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, #ccc 75%),
-    linear-gradient(135deg, transparent 75%, #ccc 75%);
-    background-size: calc(var(--w)/var(--i)*2) calc(var(--w)/var(--i)*2);
-    background-position:0 0, calc(var(--w)/var(--i)) 0, calc(var(--w)/var(--i)) calc(var(--w)/var(--i)*-1), 0px calc(var(--w)/var(--i));
-    border:1px solid #000000;
+  border:1px solid $secondary;
 }
 
 .layer{
   position: absolute;
   left: 0;
   top: 0;
-  width: 500px;
-  height: 500px;
+  width: 100%;
+  height: 100%;
   background-image: none;
-  border:1px solid #000000;
+  border:1px solid $secondary;
 }

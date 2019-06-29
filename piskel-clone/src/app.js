@@ -8,8 +8,8 @@ export default class PiskelApp {
   constructor() {
     window.globalState = {
       app_name: 'PiskelClone',
-      canvasTemplate: '<canvas class="layer" width= 500 height = 500></canvas>',
-      previewTemplate: '<canvas class="preview" width= 500 height = 500</canvas>',
+      canvasTemplate: '<canvas class="layer" width= 640 height= 640></canvas>',
+      previewTemplate: '<canvas class="preview checked" width= 500 height = 500></canvas>',
       unit_width: 32,
       unit_height: 32,
       fps: 24

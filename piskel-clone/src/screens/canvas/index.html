@@ -1,16 +1,18 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style='height: 100vh'>
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>PiskelClone</title>
+  <link href="https://fonts.googleapis.com/css?family=B612+Mono&display=swap" rel="stylesheet">
+  <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
   <link rel="stylesheet" href='../src/screens/canvas/css/index.css' type='text/css'>
 </head>
-<body>
-  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-      <a class="navbar-brand" href="#"><img height=30 src='../src/screens/canvas/images/logo.gif' title='Pixie' alt='Pixie'/></a>
-    <div class="navbar-nav">
+<body class='bg-primary'>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style='padding-left: 120px'>
+      <a class="navbar-brand" href="#"><img height=35 style='margin-top:-5px' src='../src/screens/canvas/images/logo.gif' title='Pixie' alt='Pixie'/></a>
+    <div class="navbar-nav" style='margin-left: 50px'>
       <li class="nav-item">
         <a class="nav-link" href="#">Create new</a>
       </li>
@@ -25,24 +27,66 @@
       </li>
     </div>
   </nav>
-  <nav class="btn-toolbar-vertical float-left" style='margin: 20px'>
-    <div class='toolbar btn-group-vertical'>
-        <button tool='pen'    class="btn btn-primary" style='width: 100%'>Pen tool</button>
-        <button tool='eraser' class="btn btn-primary" style='width: 100%'>Eraser tool</button>
-        <button tool='bucket' class="btn btn-primary" style='width: 100%'>Bucket tool</button>
+  <section style='padding: 0 100px'>
+  <section class='btn-group-vertical float-left' style='width: 240px; padding: 0 20px;'>
+
+  <div class="btn-toolbar-vertical float-left bg-dark rounded text-light">
+      <h2 class='small text-muted text-center' style='margin-top: 10px;'>Drawing tools</h2>
+      <div style='padding: 10px; background-color:#c4c4c410;'>
+    <div class='toolbar btn-group-vertical' style='margin-right: 15px;'>
+        <button tool='pen'    class="btn btn-secondary" style='width: 100%; height: 40px'>Pen tool</button>
+        <button tool='eraser' class="btn btn-secondary" style='width: 100%; height: 40px'>Eraser tool</button>
+        <button tool='bucket' class="btn btn-secondary" style='width: 100%; height: 40px'>Bucket tool</button>
     </div>
-    <div class='colorbar btn-group-vertical'>
-      <input tool='primaryColor' type='color'>
-      <input tool='secondaryColor' type='color'>
-      <button tool='swap_colors' class='btn btn-secondary'>Swap</button>
+    <div class='colorbar btn-group-vertical' style='width: 50px;'>
+      <input tool='primaryColor' class='btn btn-outline-secondary' style='height: 50px;' type='color'>
+      <input tool='secondaryColor' class='btn btn-outline-secondary' style='height: 50px;' type='color'>
+      <button tool='swap_colors' class='btn btn-outline-secondary text-center' style='font-size: 70%; color: #c4c4c4;'>Swap</button>
     </div>
-    <div class='brushbar btn-group-vertival'>
-      <input id='width-bar' type='range' min=1 max=4 step=1 value=1>
-      <label for='width-bar'>0</label>
+    <div class='brushbar btn-group-vertival'  style='margin-top: 20px;'>
+      <input id='width-bar' name='width-bar' type='range' min=1 max=4 step=1 value=1>
+      <output for='width-bar'>0</output>
+      <label for='width-bar' class='small float-right'>Brush width</label>
     </div>
-  </nav>
-  <section class='workflow'>
+  </div>
+    <div class='canvaslocator' style='margin-top: 60px; margin: 10px; '>
+      <div style='width: 50px; margin: 2px;' class='small float-left'><span id='location_X'>-</span>, <span id='location_Y'>-</span></div>
+      <span class='small float-right'>Canvas location</span>
+    </div>
+  </div>
+  <div class='layers btn-toolbar-vertical bg-dark rounded' style='width: 100%; height: 43vh; margin-top: 40px'>
+      <h2 class='small text-muted text-center' style='margin-top: 10px;'>Layers list</h2>
+      <div calss='layersbar btn-group' style='margin: 10px;'>
+          <button tool='newlayer' class='btn btn-secondary'><i class="fa fa-plus"></i></button>
+      </div>
+      <div class='rounded' style='background-color:#c4c4c410; height: 34vh; overflow-y: auto; margin: 10px 0;'>
+      <div class='layers-list btn-group-vertical'  style='padding: 10px; width: 100%'>
+
+      </div>
+      </div>
+  </div>
+</section>
+  <section class='workflow checked'>
   </section>
-  <div><span id='location_X'>0</span>, <span id='location_Y'>0</span></div>
+  <div class='frames bg-dark float-right' style='position: absolute; top: 85px; right: 23%;'>
+      <h2 class='small text-muted text-center' style='margin-top: 10px;'>Frames list</h2>
+
+        <div class='framesbar btn-group-vertical' style='margin-bottom: 10px; width: 100%; padding: 10px'>
+            <button class='btn btn-secondary' tool='newframe' >New frame</button>
+        </div>
+        <div style='height: 550px; overflow-y: auto; overflow-x: hidden; width: 125px; padding: 10px'>
+    <div class='frames-list btn-group-vertical'>
+    </div>
+    </div>
+  </div>
+  <div class='big_preview float-right' style='position: absolute; top: 85px; right: 90px;'>
+    <br>
+    <div class='btn-group'>
+      <button class= "fullpreview btn btn-secondary"><i class="fa fa-window-maximize"></i></button>
+      <button class= "startPreview btn btn-secondary"><i class="fa fa-play"></i></button>
+      <button class= "stopPreview btn btn-secondary"><i class="fa fa-pause"></i></button>
+    </div>
+  </div>
+</section>
 </body>
 </html>

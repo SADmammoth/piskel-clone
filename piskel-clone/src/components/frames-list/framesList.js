@@ -22,23 +22,23 @@ export default class framesList {
   start(toolbarSignal) {
     this.signal = toolbarSignal;
     this.createFrame();
-
+    this.framesManager.bind();
   }
 
   embed() {
     this.framesManager.delete();
     this.framesManager.html();
-
-
-    this.framesManager.bind();
+    this.framesManager.rebind();
+    window.globalState.currentFrame.layerList.embed();
   }
 
   createFrame() {
     let frame = new Frame(this.framesCount, new layersList(this.signal));
+
     this.list.push(frame);
-    this.embed();
     window.globalState.currentFrame = frame;
     this.framesCount++;
+    this.embed();
   }
 
   editFrame(count) {

@@ -1,15 +1,19 @@
 export default class locator {
-    constructor(canvasManager) {
-        this.manager = canvasManager;
-    }
+  constructor() {
+  }
 
-    reactEvent(event) {
-        return this.manager.pointedUnit(event.pageX, event.pageY);
-    }
+  reactEvent(event) {
+    return window.globalState.currentLayer.manager.pointedUnit(event.pageX, event.pageY);
+  }
 
-    drawLocation(event) {
-        let XY = this.reactEvent(event);
-        $('#location_X').text(`${XY.unitX}`);
-        $('#location_Y').text(`${XY.unitY}`);
-    }
+  drawLocation(event) {
+    let XY = this.reactEvent(event);
+    $('#location_X').text(`${XY.unitX}`);
+    $('#location_Y').text(`${XY.unitY}`);
+  }
+
+  noLocation() {
+    $('#location_X').text(`-`);
+    $('#location_Y').text(`-`);
+  }
 }

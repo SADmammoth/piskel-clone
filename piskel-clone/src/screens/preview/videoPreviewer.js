@@ -2,12 +2,11 @@ export default class videoPreviewer {
   constructor() {
     this.frame = 0;
     this.update = this.update.bind(this);
+    this.stopped = true;
   }
 
   async start() {
     this.embed();
-    this.interval = setInterval(this.updateView.bind(this), 1000 / window.globalState.fps);
-
   }
 
   async updateView() {
@@ -26,22 +25,30 @@ export default class videoPreviewer {
   async embed() {
     this.stopPreview();
     let canvas = $(window.globalState.previewTemplate);
-    $('body').append(canvas);
-    $('body .preview').wrap('<div class="big_preview"/>');
+    $('.big_preview').prepend(canvas);
     this.canvas = $('.big_preview canvas');
     this.frames = window.globalState.currentFramelist.frames();
-    $('body .big_preview').append('<button class ="fullpreview">Preview</button>');
     $('body .big_preview .fullpreview').on('click', this.blankwindow.bind(this));
-    $('body .big_preview').append('<button class ="stopPreview">StopPreview</button>');
-    $('body .big_preview .stopPreview').on('click', this.stopPreview.bind(this));
-    $('body .big_preview').append('<br><button class ="startPreview">startPreview</button>');
-    $('body .big_preview .startPreview').on('click', this.update.bind(this));
+    $('body .big_preview .stopPreview').on('click', this.pause.bind(this));
+    $('body .big_preview .startPreview').on('click', this.play.bind(this));
   }
 
   async update() {
+    if (!this.stopped) {
+      this.stopPreview();
+      this.frames = window.globalState.currentFramelist.frames();
+      this.interval = setInterval(this.updateView.bind(this), 1000 / window.globalState.fps);
+    }
+  }
+
+  async play() {
+    this.stopped = false;
+    this.update();
+  }
+
+  async pause() {
+    this.stopped = true;
     this.stopPreview();
-    this.frames = window.globalState.currentFramelist.frames();
-    this.interval = setInterval(this.updateView.bind(this), 1000 / window.globalState.fps);
   }
 
   async blankwindow() {

@@ -1,9 +1,48 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Webpack App</title>
-  </head>
-  <body>
-  <script type="text/javascript" src="/app.bundle.js"></script></body>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PiskelClone</title>
+  <link rel="stylesheet" href='../src/screens/canvas/css/index.css' type='text/css'>
+</head>
+<body class='bg-primary'>
+  <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+      <a class="navbar-brand" href="#"><img height=30 src='../src/screens/canvas/images/logo.gif' title='Pixie' alt='Pixie'/></a>
+    <div class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="#">Create new</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Save</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Load</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Export</a>
+      </li>
+    </div>
+  </nav>
+  <nav class="btn-toolbar-vertical float-left" style='margin: 20px'>
+    <div class='toolbar btn-group-vertical'>
+        <button tool='pen'    class="btn btn-secondary" style='width: 100%'>Pen tool</button>
+        <button tool='eraser' class="btn btn-secondary" style='width: 100%'>Eraser tool</button>
+        <button tool='bucket' class="btn btn-secondary" style='width: 100%'>Bucket tool</button>
+    </div>
+    <div class='colorbar btn-group-vertical' style='width: 50px;'>
+      <input tool='primaryColor' class='btn btn-outline-secondary' style='height: 50px;' type='color'>
+      <input tool='secondaryColor' class='btn btn-outline-secondary' style='height: 50px;' type='color'>
+      <button tool='swap_colors' class='btn btn-outline-secondary text-center' style='font-size: 70%; color: #ffffff;'>Swap</button>
+    </div>
+    <button class='brushbar btn-group-vertival' disabled>
+      <div data-toggle="tooltip" data-placement="top" title="Disabled tooltip" >
+      <input  trigger="focus" tabindex="0" id='width-bar' data-toggle="tooltip" name='width-bar' type='range' min=1 max=4 step=1 value=1>
+    </button>
+    </div>
+  </nav>
+  <section class='workflow'>
+  </section>
+  <div><span id='location_X'>0</span>, <span id='location_Y'>0</span></div>
+<script type="text/javascript" src="/app.bundle.js"></script></body>
 </html>

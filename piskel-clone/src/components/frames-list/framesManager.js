@@ -4,18 +4,15 @@ export default class framesManager {
   }
 
   html() {
-    let str = `
-        <div class='frames'>
-            <ul class='framesbar btn-group-vertical'>
-                <button tool='newframe'>New frame</button>
-            </ul>
-        </div>`;
-    $('body').append(str);
     this.framesList.frames().map((x) => x.html());
   }
 
   delete() {
-    $('.frames').remove();
+    $('.frames-list').children().remove();
+  }
+
+  rebind() {
+    $('.frame').on('click', this.chooseFrame.bind(this));
   }
 
   bind() {
@@ -33,10 +30,11 @@ export default class framesManager {
       if (target.text() === window.globalState.currentFrame.count) {
         return true;
       }
-      $('.frames-list .active').removeClass('active');
 
-      e.target.classList.add('active');
+
       this.framesList.editFrame(target.text());
+      $('.frames-list button.active').removeClass('active');
+      e.target.classList.add('active');
     }
   }
 }

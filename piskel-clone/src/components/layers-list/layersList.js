@@ -4,6 +4,8 @@ import Layer from './Layer.js';
 
 export default class layersList {
   constructor(signal, base_layer) {
+    this.updateView = signal;
+    this.updateView = this.updateView.bind(this);
     if (base_layer) {
       this.base_layer = base_layer;
       this.layersManager = new layersManager(this);
@@ -18,15 +20,14 @@ export default class layersList {
       $('.workflow').empty();
       this.createLayer('Layer 1');
     }
-
-    this.updateView = signal;
+    this.layersManager.bind();
   }
 
   embed() {
     this.layersManager.delete();
     let html = this.layersManager.html();
-    $('body').append(html);
-    this.layersManager.bind();
+    $('.layers-list').append(html);
+    this.layersManager.rebind();
   }
 
   createLayer(name) {
@@ -60,10 +61,13 @@ export default class layersList {
     if (window.globalState.currentTool) {
       this.updateView();
     }
+    this.lastLayer = this.listObject[name];
+    this.embed();
   }
 
   linkSignal(signal) {
     this.updateView = signal;
+    this.updateView = this.updateView.bind(this);
   }
 
   layers() {
