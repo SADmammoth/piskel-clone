@@ -38,4 +38,8 @@ export default class PiskelApp {
     brushbar.start();
     $(':root').css('--i', window.globalState.unit_width);
   }
+
+  dev() {
+    $('body').on('keydown', (e) => { if (e.key === 'B') { throw Error('PiskelApp is terminated'); } });
+  }
 }
