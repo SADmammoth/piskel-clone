@@ -6,7 +6,7 @@ import videoPreviewer from "./screens/preview/videoPreviewer.js";
 
 
 export default class PiskelApp {
-  constructor(unit_width, unit_height, main_document) {
+  constructor(unit_width, unit_height) {
     window.globalState = {
       app_name: 'PiskelClone',
       canvasTemplate: '<canvas class="layer" width= 640 height= 640></canvas>',
@@ -14,7 +14,6 @@ export default class PiskelApp {
       unit_width: unit_width,
       unit_height: unit_height,
       fps: 24,
-      main_document: main_document
     };
   }
 

@@ -9,5 +9,6 @@ import toolbarManager from "./Tools/toolbarManager.js";
 import colorManager from "./Tools/colorManager.js";
 
 import brushbarManager from "./Tools/brushbarManager.js";
+import '../canvas/css/style.css'
 
 export { Pen, Eraser, Bucket, toolbarManager, colorManager, brushbarManager };

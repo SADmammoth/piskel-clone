@@ -40,7 +40,7 @@
     "build": "webpack --mode production",
     "lint": "eslint src/",
     "scss": "node-sass --watch ./src/screens/canvas/scss/index.scss ./src/screens/canvas/css/index.css",
-    "start": "node src/app.js",
+    "start": "node server.js",
     "heroku-postbuild": "webpack --mode production"
   },
   "dependencies": {

@@ -34,7 +34,6 @@ export default class framesManager {
     if (e.target.classList.contains('preview')) {
       e.target = $(e.target).parent()[0];
     }
-    console.log(e.target);
     if (e.target.classList.contains('btn')) {
       e.stopPropagation();
       let target = $(e.target).find('.framecount');
@@ -44,7 +43,6 @@ export default class framesManager {
       this.framesList.editFrame.bind(this.framesList)(target.text());
       $('.frames-list button.active').removeClass('active');
       e.target.classList.add('active');
-      console.log(e.target.classList);
     }
   }
 }

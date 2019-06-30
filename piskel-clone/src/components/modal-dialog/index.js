@@ -1,5 +1,8 @@
-$('#welcomescreen').html($(require("./index.html")));
+let doc = require;
+let parser = new DOMParser()
+doc = parser.parseFromString(require("./index.html"), "text/html")
 
+$('#welcomescreen').html($(doc.body).html());
 
 export default class canvasCreator {
   constructor(func) {

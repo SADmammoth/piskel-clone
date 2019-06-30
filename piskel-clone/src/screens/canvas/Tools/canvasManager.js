@@ -19,7 +19,6 @@ export default class canvasManager {
   copy() {
     let canvas = new $(window.globalState.canvasTemplate);
     $('.workflow').prepend(canvas);
-    console.log($('.workflow canvas')[0]);
     $('.workflow canvas')[0].getContext('2d').drawImage(this.canvas, 0, 0);
     canvas = $('.workflow canvas')[0];
     let manager = new canvasManager(this.unit_width, this.unit_height, canvas);

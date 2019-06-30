@@ -1,6 +1,5 @@
 {
   "files.exclude": {
-    "**/.DS_Store": false,
-    "**/bootstrap": true
+    "**/.DS_Store": false
   }
 }
