@@ -1,0 +1,25 @@
+  <div class='modal-dialog modal-dialog-centered'>
+  <div class="modal-content bg-dark text-light modal-content-vertical">
+    <div class="modal-header" >
+      <h1 class='modal-title'>Welcome to <strong style='color: #ff0000c4'>Pixie</strong>: <br><p class='small'>pixel painter and animator</p></h1>
+    </div>
+    <div class="modal-body  text-center">
+      <h4>Create new canvas</h4>
+      <div class="form-group">
+      <label for='width' class='bg-primary col-form-label'>Width & Height</label>
+      <input data-toggle="popover" title='Required field' placeholder=' X units'
+      data-content='Please, enter value' id='width'
+       list="width_options" type='number'
+       name='width' min='16' step='2' max='128' required style='width: 100px;'>
+      <datalist id="width_options">
+        <option value=32>
+        <option value=64>
+        <option value=128>
+      </datalist>
+    </div>
+    </div>
+    <div class="modal-footer">
+      <button type="submit" class="create btn btn-primary" aria-hidden="true"  aria-label="Close" data-dismiss="modal">Create</button>
+    </div>
+</div>
+</div>

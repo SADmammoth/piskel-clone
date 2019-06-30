@@ -7,24 +7,27 @@
   <link href="https://fonts.googleapis.com/css?family=B612+Mono&display=swap" rel="stylesheet">
   <link rel='stylesheet' href='https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css'>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js"></script>
   <link rel="stylesheet" href='../src/screens/canvas/css/index.css' type='text/css'>
 </head>
 <body class='bg-primary'>
+
+  <div id='welcomescreen' class='modal open' role='dialog'>    </div>
   <nav class="navbar navbar-expand-sm bg-dark navbar-dark" style='padding-left: 120px'>
-      <a class="navbar-brand" href="#"><img height=35 style='margin-top:-5px' src='../src/screens/canvas/images/logo.gif' title='Pixie' alt='Pixie'/></a>
+      <a class="navbar-brand" href="#"><img height=35 style='margin-top:-5px' src='./images/logo.gif' title='Pixie' alt='Pixie'/></a>
     <div class="navbar-nav" style='margin-left: 50px'>
       <li class="nav-item">
-        <a class="nav-link" href="#">Create new</a>
+        <a class="nav-link" onclick='document.location.reload();' data-toggle="modal" data-target="#welcomescreen">Create new</a>
       </li>
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" href="#">Save</a>
       </li>
       <li class="nav-item">
         <a class="nav-link" href="#">Load</a>
-      </li>
-      <li class="nav-item">
+      </li> -->
+      <!-- <li class="nav-item">
         <a class="nav-link" href="#">Export</a>
-      </li>
+      </li> -->
     </div>
   </nav>
   <section style='padding: 0 5vw'>

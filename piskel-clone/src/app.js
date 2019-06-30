@@ -4,19 +4,27 @@ import framesList from "./components/frames-list/index.js";
 
 import videoPreviewer from "./screens/preview/videoPreviewer.js";
 
+
 export default class PiskelApp {
-  constructor() {
+  constructor(unit_width, unit_height, main_document) {
     window.globalState = {
       app_name: 'PiskelClone',
       canvasTemplate: '<canvas class="layer" width= 640 height= 640></canvas>',
       previewTemplate: '<canvas class="preview checked" width= 500 height = 500></canvas>',
-      unit_width: 32,
-      unit_height: 32,
-      fps: 24
+      unit_width: unit_width,
+      unit_height: unit_height,
+      fps: 24,
+      main_document: main_document
     };
   }
 
-  start() {
+  setSize(unit_width, unit_height) {
+    window.globalState.unit_width = unit_width;
+    window.globalState.unit_height = unit_height;
+  }
+
+  start(unit_width, unit_height) {
+    this.setSize(unit_width, unit_height);
     window.globalState.currentFramelist = new framesList();
 
     let previewer = new videoPreviewer();
@@ -37,6 +45,8 @@ export default class PiskelApp {
     let brushbar = new brushbarManager(1);
     brushbar.start();
     $(':root').css('--i', window.globalState.unit_width);
+
+
   }
 
   dev() {

@@ -26,6 +26,12 @@ module.exports = {
         test: /\.(otf|png|gif)$/,
         use: ['file-loader'],
       },
+      {
+        test: /\.(html)$/,
+        use: [
+          'html-loader'
+        ],
+      },
     ],
   },
   plugins: [new HtmlWebpackPlugin({ template: './src/screens/canvas/index.html' })],

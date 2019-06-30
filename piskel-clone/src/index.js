@@ -1,6 +1,12 @@
 import PiskelApp from './app'
 
-let app = new PiskelApp();
+import canvasCreator from './components/modal-dialog/index.js';
 
-app.start();
+let app = new PiskelApp(32, 32, document);
+
+let create_window = new canvasCreator(app.start.bind(app));
+
+create_window.start();
 app.dev();
+
+
