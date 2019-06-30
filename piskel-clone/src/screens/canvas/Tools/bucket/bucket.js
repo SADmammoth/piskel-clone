@@ -23,7 +23,6 @@ export default class Bucket extends Tool {
     paint(this.start);
     function rec(plus, color, i) {
       if (!plus.length) {
-        console.log(`Bucket suspended; array max size ${plus.length}`)
         return;
       }
 

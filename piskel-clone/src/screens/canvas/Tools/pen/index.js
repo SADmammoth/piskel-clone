@@ -60,3 +60,4 @@ export default class Pen extends Tool {
   suspendTool(event) {
     super.suspendTool(event, this.suspend.bind(this));
   }
+}
