@@ -43,9 +43,8 @@ export default class framesList {
 
   editFrame(count) {
     window.globalState.currentFrame = this.list[count];
-    console.log(count);
     window.globalState.currentFrame.layerList.showCanvas();
-    window.globalState.currentLayer = window.globalState.currentFrame.layerList.lastLayer;
+    window.globalState.currentFrame.layerList.editLayer(window.globalState.currentFrame.layerList.lastLayer.name);
     this.embed();
   }
 
@@ -62,8 +61,19 @@ export default class framesList {
   }
 
   duplicateFrame(count) {
-    let frame = this.list[count];
+
+    let frame = {};
+    frame = this.list[count].copy();
+    if (count === this.framesCount - 1) {
+      this.list.push(frame);
+      this.framesCount++;
+      this.reassignindexes();
+      this.embed();
+      return;
+    }
+
     this.list.splice(count + 1, 0, frame);
+    this.framesCount++;
     this.reassignindexes();
     this.embed();
   }

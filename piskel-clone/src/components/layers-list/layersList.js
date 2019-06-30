@@ -3,9 +3,22 @@ import layersManager from './layersManager.js';
 import Layer from './Layer.js';
 
 export default class layersList {
-  constructor(signal, base_layer) {
+  constructor(signal, base_layer, layersList) {
     this.updateView = signal;
     this.updateView = this.updateView.bind(this);
+    if (layersList) {
+      this.layersCount = 0;
+      this.layersManager = new layersManager(this);
+      this.listObject = Object.keys(layersList.listObject).reduce((acc, x) => {
+        let layer = layersList.listObject[x].oldnamecopy();
+        acc[layer.name] = layer;
+        return acc;
+      }, {});
+      this.layersManager.bind();
+      let keys = Object.keys(this.listObject);
+      this.lastLayer = this.listObject[keys[keys.length - 1]];
+      return;
+    }
     if (base_layer) {
       this.base_layer = base_layer;
       this.layersManager = new layersManager(this);
@@ -95,5 +108,10 @@ export default class layersList {
     let html = canvas.wrap('<p></p>').parent().html();
     canvas.unwrap();
     return html;
+  }
+
+
+  copy() {
+    return new layersList(this.updateView, null, this);
   }
 }

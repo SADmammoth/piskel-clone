@@ -4,6 +4,9 @@ export default class Frame {
     this.layerList = layerList;
   }
 
+  copy() {
+    return new Frame(this.count, this.layerList.copy());
+  }
   html() {
     let node = $(`<button class='frame btn btn-secondary rounded-0' style='padding: 0;'>
     <span class='framecount'>${this.count}</span>${window.globalState.previewTemplate}

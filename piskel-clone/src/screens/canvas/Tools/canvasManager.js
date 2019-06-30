@@ -1,9 +1,11 @@
 
 export default class canvasManager {
   constructor(width, height, canvas) {
+
+    this.canvas = canvas;
     this.unit_width = width;
     this.unit_height = height;
-    this.canvas = canvas;
+
     this.constructCanvas();
   }
 
@@ -12,6 +14,17 @@ export default class canvasManager {
     this.canvas.getContext('2d').fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.unit_size = this.canvas.width / this.unit_width;
     window.globalState.unit_size = this.unit_size;
+  }
+
+  copy() {
+    let canvas = new $(window.globalState.canvasTemplate);
+    $('.workflow').prepend(canvas);
+    console.log($('.workflow canvas')[0]);
+    $('.workflow canvas')[0].getContext('2d').drawImage(this.canvas, 0, 0);
+    canvas = $('.workflow canvas')[0];
+    let manager = new canvasManager(this.unit_width, this.unit_height, canvas);
+    $('.workflow canvas').eq(0).remove();
+    return manager;
   }
 
   getCanvasPoint(pageX, pageY) {

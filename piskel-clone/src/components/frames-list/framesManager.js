@@ -13,6 +13,9 @@ export default class framesManager {
 
   rebind() {
     $('.frame').on('click', this.chooseFrame.bind(this));
+    $('.duplicateframe').on('click', (e) => {
+      this.framesList.duplicateFrame($(e.target).parent().parent().find('.framecount').text());
+    });
     $('.deleteframe').on('click', (e) => {
       this.framesList.deleteFrame($(e.target).parent().parent().find('.framecount').text());
     });
@@ -28,9 +31,12 @@ export default class framesManager {
   }
 
   chooseFrame(e) {
-    console.log(this);
-    e.preventDefault();
+    if (e.target.classList.contains('preview')) {
+      e.target = $(e.target).parent()[0];
+    }
+    console.log(e.target);
     if (e.target.classList.contains('btn')) {
+      e.stopPropagation();
       let target = $(e.target).find('.framecount');
       if (target.text() === window.globalState.currentFrame.count) {
         return true;
