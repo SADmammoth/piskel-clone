@@ -40,6 +40,6 @@ export default class PiskelApp {
   }
 
   dev() {
-    $('body').on('keydown', (e) => { if (e.key === 'B') { throw Error('PiskelApp is terminated'); } });
+    $('body').on('keydown', (e) => { if (e.key === 'B') { window.globalState.currentFramelist.moveFrame(0, 1); } });
   }
 }

@@ -6416,12 +6416,31 @@ div::-webkit-scrollbar-thumb {
 
 .framecount {
   position: absolute;
+  top: 5px;
   left: 8px;
   font-weight: bold;
   -webkit-text-stroke-width: 1px;
   -webkit-text-stroke-color: black;
   font-family: 'Roboto', sans-serif;
   font-size: 20px; }
+
+.deleteframe {
+  position: absolute;
+  bottom: 8px;
+  right: 8px;
+  font-size: 20px;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
+  font-weight: bold; }
+
+.duplicateframe {
+  position: absolute;
+  bottom: 8px;
+  left: 8px;
+  font-size: 20px;
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: black;
+  font-weight: bold; }
 
 .checked {
   background-color: #343a40;

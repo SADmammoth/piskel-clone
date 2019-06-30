@@ -13,6 +13,9 @@ export default class framesManager {
 
   rebind() {
     $('.frame').on('click', this.chooseFrame.bind(this));
+    $('.deleteframe').on('click', (e) => {
+      this.framesList.deleteFrame($(e.target).parent().parent().find('.framecount').text());
+    });
   }
 
   bind() {
@@ -25,16 +28,17 @@ export default class framesManager {
   }
 
   chooseFrame(e) {
+    console.log(this);
+    e.preventDefault();
     if (e.target.classList.contains('btn')) {
-      let target = $(e.target).find('span');
+      let target = $(e.target).find('.framecount');
       if (target.text() === window.globalState.currentFrame.count) {
         return true;
       }
-
-
-      this.framesList.editFrame(target.text());
+      this.framesList.editFrame.bind(this.framesList)(target.text());
       $('.frames-list button.active').removeClass('active');
       e.target.classList.add('active');
+      console.log(e.target.classList);
     }
   }
 }

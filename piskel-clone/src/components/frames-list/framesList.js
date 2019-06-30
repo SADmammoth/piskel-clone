@@ -43,9 +43,60 @@ export default class framesList {
 
   editFrame(count) {
     window.globalState.currentFrame = this.list[count];
+    console.log(count);
     window.globalState.currentFrame.layerList.showCanvas();
     window.globalState.currentLayer = window.globalState.currentFrame.layerList.lastLayer;
     this.embed();
+  }
+
+  moveFrame(from_count, to_count) {
+    if (from_count >= this.list.length || to_count < 0 || from_count >= to_count) {
+      throw Error('Incorrect frame count input');
+    }
+    this.list[from_count].count = to_count;
+    this.list[to_count].count = from_count;
+    let buf = this.list[from_count];
+    this.list.splice(from_count, 1);
+    this.list.splice(to_count, 0, buf);
+    this.embed();
+  }
+
+  duplicateFrame(count) {
+    let frame = this.list[count];
+    this.list.splice(count + 1, 0, frame);
+    this.reassignindexes();
+    this.embed();
+  }
+
+  deleteFrame(count) {
+    if (this.framesCount > 1) {
+      let frame = this.list[count];
+      if (frame) {
+        if (window.globalState.currentFrame.count === count) {
+          if (count >= 1) {
+            window.globalState.currentFrame = this.list[count - 1];
+            this.list.splice(count, 1);
+            this.framesCount--;
+          }
+          else {
+            this.list.splice(count, 1);
+            window.globalState.currentFrame = this.list[this.framesCount--];
+          }
+        } else {
+          this.list.splice(count, 1);
+          this.framesCount--;
+        }
+        this.reassignindexes();
+        this.embed();
+      } else {
+        throw Error('Incorrect frame count input');
+      }
+
+    }
+  }
+
+  reassignindexes() {
+    this.list.forEach((x, i) => x.count = i);
   }
 
   update() {
