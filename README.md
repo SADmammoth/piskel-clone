@@ -1,4 +1,5 @@
 # Piskel-clone task for Rolling Scopes School
+What is Rolling Scopes School? - [link](https://rs.school/)
 
 Task conditions: [link](https://github.com/rolling-scopes-school/tasks/blob/2018-Q3/tasks/piskel-clone.md)\
 Landing page: [Powered by surge.sh](pixie-painter.surge.sh)\
