@@ -2,7 +2,7 @@
 What is Rolling Scopes School? - [link](https://rs.school/)
 
 Task conditions: [link](https://github.com/rolling-scopes-school/tasks/blob/2018-Q3/tasks/piskel-clone.md)\
-Landing page: [Powered by surge.sh](pixie-painter.surge.sh)\
+Landing page: [Powered by surge.sh](https://pixie-painter.surge.sh)\
 App on server: [Powered by heroku](https://pixie-painter.herokuapp.com/)
 
 ## Local machine startup instruction
