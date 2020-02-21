@@ -5,16 +5,6 @@ Task conditions: [link](https://github.com/rolling-scopes-school/tasks/blob/2018
 Landing page: [Powered by surge.sh](https://pixie-painter.surge.sh)\
 App on server: [Powered by heroku](https://pixie-painter.herokuapp.com/)
 
-## Local machine startup instruction
-1. Go to piskel-clone folder
-2. Type in terminal:
-  `npm install`,
-  then:
-  `npm dev`
-3. Open app in browser by path _localhost:8080_ (by default)
-
-__Note__ You need _Node.js_ and _node_ to be installed
-
 ## Worklog
 
 | Date,  2019    | Feature                           | Time spent |
@@ -33,3 +23,13 @@ __Note__ You need _Node.js_ and _node_ to be installed
 | Jun 30         | Welcome modal                     | 3h         |
 | Jun 30         | Heroku deployment                 | 3h         |
 |5 days spent    |                                   | 49h spent  |
+
+## Local machine startup instruction
+1. Go to piskel-clone folder
+2. Type in terminal:
+  `npm install`,
+  then:
+  `npm dev`
+3. Open app in browser by path _localhost:8080_ (by default)
+
+__Note__ You need _Node.js_ and _node_ to be installed
